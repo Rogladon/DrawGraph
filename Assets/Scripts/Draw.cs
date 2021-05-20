@@ -34,7 +34,9 @@ namespace DrawGraph {
         private void DefaultUpdate() {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)) {
+            int layer = 1 << 6;
+            //layer = ~layer;
+            if (Physics.Raycast(ray, out hit, 1000f, layer)) {
                 if (Input.GetMouseButtonDown(0)) {
                     Node node;
                     if ((node = graph.GetNode(hit.point.Vector2(), radius)) == null) {
