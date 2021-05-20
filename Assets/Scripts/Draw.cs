@@ -6,6 +6,8 @@ using DrawGraph.Graph;
 namespace DrawGraph {
     public class Draw : MonoBehaviour {
         [SerializeField]
+        Palette palette;
+        [SerializeField]
         Transform graphDomain;
         [SerializeField]
         NodeObject point;
@@ -18,6 +20,7 @@ namespace DrawGraph {
 
         LineRenderer lineRenderer;
         Node currentNode;
+        Node currentSetColorNode;
         List<NodeObject> nodes = new List<NodeObject>();
 
         private delegate void MethodUpdate();
@@ -36,7 +39,8 @@ namespace DrawGraph {
             RaycastHit hit;
             int layer = 1 << 6;
             //layer = ~layer;
-            if (Physics.Raycast(ray, out hit, 1000f, layer)) {
+            if (Physics.Raycast(ray, out hit)) {
+                if (hit.transform.tag != "Draw") return;
                 if (Input.GetMouseButtonDown(0)) {
                     Node node;
                     if ((node = graph.GetNode(hit.point.Vector2(), radius)) == null) {
@@ -51,6 +55,15 @@ namespace DrawGraph {
                         lineRenderer.SetPosition(0, node.position.Vector3());
                         update = CreateLine;
                     }
+                }
+                if (Input.GetMouseButton(1)) {
+                    Node node;
+                    if ((node = graph.GetNode(hit.point.Vector2(), radius)) != null) {
+                        palette.ShowPalette(SetColor);
+                        currentSetColorNode = node;
+                    } else {
+                        palette.HidePalette();
+					}
                 }
             }
         }
@@ -105,6 +118,11 @@ namespace DrawGraph {
                     lineRenderer.SetPosition(1, graph[j].position);
                 }
 			}
+		}
+
+        public void SetColor(int colorId) {
+            currentSetColorNode.SetColor(colorId);
+            UpdateColors();
 		}
 	}
 }

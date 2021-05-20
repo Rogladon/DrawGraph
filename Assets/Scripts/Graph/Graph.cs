@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using System;
 namespace DrawGraph.Graph {
-    public class Colors {
+    public class Colors: IEnumerable<KeyValuePair<int,Color>> {
         private static Colors instance;
         public static Colors Instance {
 			get {
@@ -37,6 +37,14 @@ namespace DrawGraph.Graph {
 			get {
                 return colors[index];
 			}
+		}
+
+		public IEnumerator<KeyValuePair<int, Color>> GetEnumerator() {
+			return ((IEnumerable<KeyValuePair<int, Color>>)colors).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return ((IEnumerable)colors).GetEnumerator();
 		}
 	}
 

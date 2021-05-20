@@ -15,6 +15,7 @@ namespace DrawGraph.Graph {
 		}
 
 		public void UpdateColor() {
+			if(node.color != -1)
 			spriteRenderer.color = Colors.Instance[node.color];
 		}
 	}
