@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace DrawGraph.HUD {
 	public class HUD : MonoBehaviour {
+		[SerializeField] Text chrom;
 		public void Save(string path) {
 			Main.Instance.Save(path);
 		}
@@ -26,6 +27,14 @@ namespace DrawGraph.HUD {
 		}
 		public void DrawGraph() {
 			Main.Instance.AlgDraw();
+			SetChrom();
+		}
+		public void DeepSerachDraw() {
+			Main.Instance.DeepSearchDraw();
+			SetChrom();
+		}
+		public void SetChrom() {
+			chrom.text = Main.Instance.GetChrom().ToString();
 		}
 	}
 }

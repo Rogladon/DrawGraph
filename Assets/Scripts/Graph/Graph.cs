@@ -14,7 +14,7 @@ namespace DrawGraph.Graph {
                 return instance;
 			}
 		}
-        Dictionary<int, Color> colors = new Dictionary<int, Color> {
+        Dictionary<int, Color> colorsDictionary = new Dictionary<int, Color> {
             {0,new Color(1,0,0) },
             {1,new Color(0,1,0) },
             {2, new Color(0,0,1) },
@@ -32,10 +32,11 @@ namespace DrawGraph.Graph {
             {14, new Color(0.5f,1,0.5f) },
             {15, new Color(0.5f,0.5f,1) }
         };
-
+        public List<int> keys => colorsDictionary.Keys.ToList();
+        public List<Color> colors => colorsDictionary.Values.ToList();
         public Color this[int index] {
 			get {
-                return colors[index];
+                return colorsDictionary[index];
 			}
 		}
 	}

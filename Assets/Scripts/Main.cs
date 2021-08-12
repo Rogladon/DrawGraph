@@ -15,7 +15,21 @@ namespace DrawGraph {
 			Instance = this;
 		}
 		public void AlgDraw() {
-			Algoritm.SimpleDraw(ref draw.graph);
+			draw.graph = Algoritm.SimpleDraw(draw.graph);
+			draw.UpdateColors();
+		}
+		public int GetChrom() {
+			List<int> colors = new List<int>();
+			int ch = 0;
+			foreach(var i in draw.graph) {
+				if (colors.Contains(i.color)) continue;
+				ch++;
+				colors.Add(i.color);
+			}
+			return ch;
+		}
+		public void DeepSearchDraw() {
+			draw.graph = Algoritm.DeepSearchDraw(draw.graph);
 			draw.UpdateColors();
 		}
 		public void New() {
